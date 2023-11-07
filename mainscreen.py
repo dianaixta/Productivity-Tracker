@@ -4,12 +4,16 @@ from button import Button
 class mainScreen:
     #open a graphics window
     def __init__(self):
-        self.win = win = GraphWin("Main Page", 850, 425)
+        self.win = win = GraphWin("Main Page", 900, 450)
         win.setCoords(0, 0, 10, 10)
         win.setBackground("orange")
 
+        title = Text(Point(5,7), 'BLOCKS: THE PRODUCTIVITY APP')
+        title.draw(win)
+        title.setSize(26)
+        title.setFace('courier')
+
         self.__createButtons()
-        self.__createDisplay()
 
 #create buttons (location, label)
     def __createButtons(self):
@@ -29,9 +33,13 @@ class mainScreen:
         for button in self.buttons:
             button.setColor('moccasin', 'red')
             button.activate()
-
-    def __createDisplay(self):
-        pass
+#getting button info
+    def getButton(self):
+        while True:
+            p = self.win.getMouse()
+            for button in self.buttons:
+                if button.clicked(p):
+                    return button.getLabel()
 
     def run(self):
         p = self.win.getMouse()
