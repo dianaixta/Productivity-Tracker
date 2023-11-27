@@ -3,32 +3,44 @@ from button import Button
 
 class Instructions:
     def __init__(self):
-        self.win = win = GraphWin("Instructions", 1000, 1000)
+        self.win = win = GraphWin("Instructions", 500, 500)
         win.setCoords(0,0,10,10)
         win.setBackground("orange")
 
-        self.exit = exit = Button(win, Point(9,9), 0.25, 0.25, "Exit")
+        self.exit = exit = Button(win, Point(9,9), 1, 1, "Exit")
 
-        self.heading = heading = Text(Point(8.5,5) , "Welcome to Blocks the Productivity App!")
-        heading.setSize(30)
+        self.heading = heading = Text(Point(5,7) , " Welcome to Blocks \n the Productivity App! ")
+        heading.setFace('courier')
+        heading.setFill('black')
+        heading.setSize(22)
         heading.setStyle("bold")
+        heading.draw(win)
 
-        self.body = body = Text(Point(4,5), "At the beginning of the week input all of your tasks/n/ for school, work, etc. manually or by adding a file. /n/ Then let our app create a curated schedule for your week.")
-        body.setSize(24)
+        self.body = body = Text(Point(5,4), "At the beginning of the week, input all of \n your tasks for school, work, etc. Then, \n a curated  schedule for your week \n will be created for you!")
+        body.setSize(14)
+        body.setFace('courier')
+        body.setFill('black')
+        body.draw(win)
 
-        self.enter = enter = Button(win, Point(1,5), 1, 0.25, "Let's Begin!")
+        self.enter = enter = Button(win, Point(5,1), 5, 1.25, "Let's Begin!")
+
+
+    def run(self):
+        p = self.win.getMouse()
 
 
     def AppClose(self):
-        if exit.clicked():
+        p = self.win.getMouse()
+        if exit.clicked(p):
             win.close()
 
     def AppStart(self):
-        if enter.clicked():
+        p = self.win.getMouse()
+        if enter.clicked(p):
             AppMain()
 
 def main():
-    Instructions()
-
+    instr = Instructions()
+    instr.run()
 
 main()
