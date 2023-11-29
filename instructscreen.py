@@ -1,13 +1,16 @@
 from graphics import *
 from button import Button
-
+from mainscreen import mainScreen
 class Instructions:
     def __init__(self):
         self.win = win = GraphWin("Instructions", 500, 500)
         win.setCoords(0,0,10,10)
         win.setBackground("orange")
 
-        self.exit = exit = Button(win, Point(9,9), 1, 1, "Exit")
+        self.Buttons = []
+
+        self.Buttons.append(Button(win, Point(9,9), 1, 1, "Exit"))
+
 
         self.heading = heading = Text(Point(5,7) , " Welcome to Blocks \n the Productivity App! ")
         heading.setFace('courier')
@@ -22,25 +25,32 @@ class Instructions:
         body.setFill('black')
         body.draw(win)
 
-        self.enter = enter = Button(win, Point(5,1), 5, 1.25, "Let's Begin!")
+        self.Buttons.append(Button(win, Point(5,1), 5, 1.25, "Let's Begin!"))
 
+        for button in self.Buttons:
+            button.activate()
+
+    def getButton(self):
+            while True:
+                p = self.win.getMouse()
+                for B in self.Buttons:
+                    if B.clicked(p):
+                        return B.getLabel()
 
     def run(self):
         p = self.win.getMouse()
 
+    def getChoice(self):
+        choice = self.getButton()
+        if choice == "Let's Begin":
+            screen = mainScreen()
+            screen.run()
+        if choice == 'Exit':
+            self.win.close()
 
-    def AppClose(self):
-        p = self.win.getMouse()
-        if exit.clicked(p):
-            win.close()
-
-    def AppStart(self):
-        p = self.win.getMouse()
-        if enter.clicked(p):
-            AppMain()
 
 def main():
     instr = Instructions()
-    instr.run()
+    instr.getChoice()
 
 main()
