@@ -39,14 +39,12 @@ class DayScreen:
 
         #Day header
 
+        for button in self.buttons:
+            button.setColor('moccasin', 'red')
+            button.activate()
+
     def drag(self):
         pass
 
     def run(self):
         p = self.win.getMouse()
-
-def main():
-    day = DayScreen()
-    day.run()
-
-main()

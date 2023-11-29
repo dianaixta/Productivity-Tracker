@@ -9,7 +9,7 @@ class mainScreen:
         win.setCoords(0, 0, 10, 10)
         win.setBackground("orange")
 
-        title = Text(Point(5,7), 'BLOCKS: THE PRODUCTIVITY APP')
+        title = Text(Point(5,7), 'Blocks: The Productivity App')
         title.draw(win)
         title.setSize(26)
         title.setFace('courier')
@@ -45,32 +45,32 @@ class mainScreen:
     def getChoice(self):
         choice = self.getButton()
         if choice == 'Monday':
+            self.win.close()
             DayScreen()
 
         if choice == 'Tuesday':
+            self.win.close()
             DayScreen()
 
         if choice == 'Wednesday':
+            self.win.close()
             DayScreen()
 
         if choice == 'Thursday':
+            self.win.close()
             DayScreen()
 
         if choice == 'Friday':
+            self.win.close()
             DayScreen()
 
         if choice == 'Saturday':
+            self.win.close()
             DayScreen()
 
         if choice == 'Sunday':
+            self.win.close()
             Dayscreen()
 
         if choice == 'X':
             self.win.close()
-
-def main():
-    screen = mainScreen()
-    screen.getChoice()
-
-if __name__ == '__main__':
-    main()

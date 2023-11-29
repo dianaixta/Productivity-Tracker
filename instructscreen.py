@@ -28,6 +28,7 @@ class Instructions:
         self.Buttons.append(Button(win, Point(5,1), 5, 1.25, "Let's Begin!"))
 
         for button in self.Buttons:
+            button.setColor('moccasin', 'red')
             button.activate()
 
     def getButton(self):
@@ -48,10 +49,8 @@ class Instructions:
         if choice == 'X':
             self.win.close()
 
-
 def main():
     instr = Instructions()
     instr.getChoice()
 
-if __name__ == '__main__':
-    main()
+main()
