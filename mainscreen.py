@@ -1,5 +1,6 @@
 from graphics import *
 from button import Button
+from dayscreen import DayScreen
 
 class mainScreen:
     #open a graphics window
@@ -41,12 +42,35 @@ class mainScreen:
                 if button.clicked(p):
                     return button.getLabel()
 
-    def run(self):
-        p = self.win.getMouse()
+    def getChoice(self):
+        choice = self.getButton()
+        if choice == 'Monday':
+            DayScreen()
+
+        if choice == 'Tuesday':
+            DayScreen()
+
+        if choice == 'Wednesday':
+            DayScreen()
+
+        if choice == 'Thursday':
+            DayScreen()
+
+        if choice == 'Friday':
+            DayScreen()
+
+        if choice == 'Saturday':
+            DayScreen()
+
+        if choice == 'Sunday':
+            Dayscreen()
+
+        if choice == 'X':
+            self.win.close()
 
 def main():
     screen = mainScreen()
-    screen.run()
+    screen.getChoice()
 
 if __name__ == '__main__':
     main()
