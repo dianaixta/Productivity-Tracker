@@ -5,5 +5,13 @@ from dayscreen import DayScreen
 
 
 class ProductivityApp:
-    def __init__():
-        Instructions()
+    def __init__(self):
+        instr = Instructions()
+        instr.getChoice()
+
+
+
+
+
+
+ProductivityApp()
