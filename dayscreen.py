@@ -3,13 +3,13 @@ from button import Button
 
 class DayScreen:
     def __init__(self):
-        self.win = win = GraphWin('Day Chart',500,500)
+        self.win = win = GraphWin('Day Chart',800,800)
         win.setBackground('orange')
-        win.setCoords(0,0,100,100)
+        win.setCoords(0, 0, 10, 10)
 
         #box for day
-        daybox = Rectangle(Point(25,7.5), Point(80,87.5))
-        daybox.setFill('white')
+        daybox = Rectangle(Point(2,1), Point(8,9))
+        daybox.setFill('moccasin')
         daybox.setOutline('black')
         daybox.draw(win)
 
@@ -48,3 +48,10 @@ class DayScreen:
 
     def run(self):
         p = self.win.getMouse()
+
+def main():
+    screen = DayScreen()
+    screen.run()
+
+if __name__ == '__main__':
+    main()

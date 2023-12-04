@@ -27,13 +27,14 @@ class mainScreen:
             self.buttons.append(Button(self.win, Point(cx, cy), 1, 1, label))
 
 #add unique buttons
-        self.buttons.append(Button(self.win, Point(5, 3), 2, 1, 'Close'))
+        self.buttons.append(Button(self.win, Point(5, 3), 2, 1, 'Back ↶'))
         self.buttons.append(Button(self.win, Point(9,9), .5,.5, 'X'))
 
 #activate buttons
         for button in self.buttons:
             button.setColor('moccasin', 'red')
             button.activate()
+
 #getting button info
     def getButton(self):
         while True:
