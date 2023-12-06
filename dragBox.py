@@ -69,3 +69,5 @@ win.close()
 
 
 #add color for each category through user input
+#make it stay
+#make it easy to edit
