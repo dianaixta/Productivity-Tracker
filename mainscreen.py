@@ -1,6 +1,6 @@
 from graphics import *
 from button import Button
-from dayscreen import DayScreen
+from schedule import *
 
 class mainScreen:
     #open a graphics window
@@ -47,31 +47,41 @@ class mainScreen:
         choice = self.getButton()
         if choice == 'Monday':
             self.win.close()
-            DayScreen()
+            day = DayScreen(choice)
+            day.run()
 
         if choice == 'Tuesday':
             self.win.close()
-            DayScreen()
+            day = DayScreen(choice)
+            day.run()
 
         if choice == 'Wednesday':
             self.win.close()
-            DayScreen()
+            day = DayScreen(choice)
+            day.run()
 
         if choice == 'Thursday':
             self.win.close()
-            DayScreen()
+            day = DayScreen(choice)
+            day.run()
 
         if choice == 'Friday':
             self.win.close()
-            DayScreen()
+            day = DayScreen(choice)
+            day.run()
 
         if choice == 'Saturday':
             self.win.close()
-            DayScreen()
+            day = DayScreen(choice)
+            day.run()
 
         if choice == 'Sunday':
             self.win.close()
-            Dayscreen()
+            day = Dayscreen(choice)
+            day.run()
 
         if choice == 'X':
             self.win.close()
+
+        #if choice == 'Back ↶':
+            #

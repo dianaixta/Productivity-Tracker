@@ -80,7 +80,7 @@ class InputDialog:
 
 
 class DayScreen:
-    def __init__(self):
+    def __init__(self, header):
         self.win = win = GraphWin('Day Chart', 800, 800)
         win.setBackground('orange')
         win.setCoords(0, 0, 20, 20)
@@ -122,6 +122,11 @@ class DayScreen:
         self.buttons.append(Button(win, Point(18, 19), 1, 0.5, "Exit"))
 
         # Day header
+        title = Text(Point(10, 19.5), header)
+        title.draw(win)
+        title.setSize(26)
+        title.setFace('courier')
+
         for button in self.buttons:
             button.setColor('moccasin', 'red')
             button.activate()
@@ -140,7 +145,7 @@ class DayScreen:
                     input_dialog.toggleColor(['red', 'green', 'blue', 'yellow', 'moccasin'])
 
 def main():
-    screen = DayScreen()
+    screen = DayScreen('Monday')
     screen.run()
 
 if __name__ == '__main__':

@@ -2,13 +2,13 @@ from graphics import *
 from button import Button
 
 class DayScreen:
-    def __init__(self):
+    def __init__(self, header):
         self.win = win = GraphWin('Day Chart',800,800)
         win.setBackground('orange')
-        win.setCoords(0, 0, 10, 10)
+        win.setCoords(0, 0, 100, 100)
 
         #box for day
-        daybox = Rectangle(Point(2,1), Point(8,9))
+        daybox = Rectangle(Point(25,5), Point(80,90))
         daybox.setFill('moccasin')
         daybox.setOutline('black')
         daybox.draw(win)
@@ -38,6 +38,10 @@ class DayScreen:
 
 
         #Day header
+        title = Text(Point(50,95), header)
+        title.draw(win)
+        title.setSize(26)
+        title.setFace('courier')
 
         for button in self.buttons:
             button.setColor('moccasin', 'red')
@@ -50,7 +54,7 @@ class DayScreen:
         p = self.win.getMouse()
 
 def main():
-    screen = DayScreen()
+    screen = DayScreen('Monday')
     screen.run()
 
 if __name__ == '__main__':

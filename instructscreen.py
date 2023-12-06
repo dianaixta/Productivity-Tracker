@@ -49,8 +49,8 @@ class Instructions:
         if choice == 'X':
             self.win.close()
 
-def main():
-    instr = Instructions()
-    instr.getChoice()
+#def main():
+    #instr = Instructions()
+    #instr.getChoice()
 
-main()
+#main()
