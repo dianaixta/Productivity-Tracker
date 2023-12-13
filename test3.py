@@ -13,7 +13,7 @@ class Button:
         self.label = Text(center, label)
         self.label.draw(win)
         self.color1, self.color2 = 'moccasin', 'red'
-        self.active = True  # Set the button active by default
+        self.active = True
 
     def clicked(self, p):
         return ((self.xmin <= p.getX() <= self.xmax) and
@@ -39,18 +39,15 @@ class Button:
         self.color1, self.color2 = color1, color2
         self.rect.setFill(color1)
 
-
 class InputDialog:
-    def __init__(self, win, position, saved_text=""):
-        self.selected_color = None  # Track the selected color
+    def __init__(self, win, position):
+        self.selected_color = None
 
         self.rect = Rectangle(position, Point(position.getX() + 10, position.getY() - 0.5))
         self.rect.draw(win)
 
-        # Entry field for user input
         self.entry = Entry(Point(position.getX() + 5, position.getY() - 0.25), 20)
         self.entry.draw(win)
-        self.entry.setText(saved_text)  # Set the text to the saved_text parameter
 
         self.color1, self.color2 = 'moccasin', 'red'
         self.activate()
@@ -101,28 +98,35 @@ class DayScreen:
         self.eightpm = Text(Point(3.5, 4.75), '8pm').draw(win)
         self.ninepm = Text(Point(3.5, 3.75), '9pm').draw(win)
 
-
         self.buttons = []
-        self.input_dialogs = []
-        self.saved_texts = [""] * 15  # Initialize with empty strings
+        self.days = []
 
         daybox = Rectangle(Point(4, 2), Point(16, 19))
         daybox.setFill('moccasin')
         daybox.setOutline('black')
         daybox.draw(win)
 
-        self.days = []
+        self.input_dialogs = []
 
-        for i in range(15):
-            position = Point(5, 18 - i)
-            saved_text = self.load_saved_text(i)
-            input_dialog = InputDialog(win, position, saved_text)
-            self.input_dialogs.append(input_dialog)
-            self.days.append(input_dialog.entry.getText())
+        try:
+            with open('input_data.txt', 'r') as file:
+                lines = file.readlines()
+                for i in range(min(len(lines), 15)):
+                    position = Point(5, 18 - i)
+                    input_dialog = InputDialog(win, position)
+                    input_dialog.entry.setText(lines[i].strip())
+                    self.input_dialogs.append(input_dialog)
+                    self.days.append(input_dialog.entry.getText())
+        except FileNotFoundError:
+            for i in range(15):
+                position = Point(5, 18 - i)
+                input_dialog = InputDialog(win, position)
+                self.input_dialogs.append(input_dialog)
+                self.days.append(input_dialog.entry.getText())
 
         self.buttons.append(Button(win, Point(18, 19), 1, 0.5, "Exit"))
-        self.buttons.append(Button(win, Point(2,2),2,0.5,"Input File"))
-        self.buttons.append(Button(win, Point(18,2),2,0.5, "Save File"))
+        self.buttons.append(Button(win, Point(2, 2), 2, 0.5, "Input File"))
+        self.buttons.append(Button(win, Point(18, 2), 2, 0.5, "Save File"))
 
         title = Text(Point(10, 19.5), header)
         title.draw(win)
@@ -132,6 +136,11 @@ class DayScreen:
         for button in self.buttons:
             button.setColor('moccasin', 'red')
             button.activate()
+
+    def saveInputTextToFile(self):
+        with open('input_data.txt', 'w') as file:
+            for input_dialog in self.input_dialogs:
+                file.write(input_dialog.entry.getText() + '\n')
 
     def getButton(self):
         while True:
@@ -146,23 +155,14 @@ class DayScreen:
                     colors = []
                     input_dialog.toggleColor(['red', 'green', 'blue', 'yellow', 'moccasin'])
                     colors.append(input_dialog.selected_color)
-                    self.days.append(colors[-1])
-                    self.save_text(input_dialog)
 
-    def save_text(self, input_dialog):
-        index = self.input_dialogs.index(input_dialog)
-        self.saved_texts[index] = input_dialog.entry.getText()
-
-    def load_saved_text(self, index):
-        if 0 <= index < len(self.saved_texts):
-            return self.saved_texts[index]
-        else:
-            return ""
+            self.days.append(colors[-1])
 
     def getChoice(self):
         choice = self.getButton()
 
         if choice == "Exit":
+            self.saveInputTextToFile()
             self.win.close()
 
         if choice == "Input File":
@@ -170,18 +170,21 @@ class DayScreen:
             self.infile = open(self.fname, "r")
             self.data = self.infile.read()
             self.tasks = self.data[::2]
-            self.color = self.data.remove(self.tasks)
+            self.color = self.data.remove(tasks)
 
         if choice == "Save File":
             self.outfileName = input("What file should your day be listed on? ")
             self.outfile = open(self.outfileName, "w")
-            print(self.days, file=self.outfile)
+            for input_dialog in self.input_dialogs:
+                print(input_dialog.entry.getText(), file=self.outfile)
             self.outfile.close()
             print("Day List has been written to", self.outfileName)
+
 
 def main():
     screen = DayScreen('Monday')
     screen.getChoice()
+
 
 if __name__ == '__main__':
     main()
