@@ -75,12 +75,19 @@ class DayScreen:
                     input_dialog.toggleColor(['red', 'green', 'blue', 'yellow', 'moccasin'])
 
     def run(self):
+        from mainscreen import mainScreen
+
         while True:
             choice = self.getButton()
             if choice == "Exit":
                 # Save text and colors before closing
                 self.save_data()
                 self.win.close()
+
+                #open mainScreen when user hits 'exit'
+                main_screen = mainScreen()
+                main_screen.getChoice()
+
                 break
 
     #Input file
